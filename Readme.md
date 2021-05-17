@@ -104,7 +104,6 @@ namespace Hania.NetCore.Mongo.Sample.Controllers
         }
     }
 }
-
 ```
 
 ### Custom Repository
@@ -122,6 +121,7 @@ namespace Hania.NetCore.Mongo.Sample
         public BlogRespository(IMongoDbSettings settings) : base(settings)
         {
         }
+        
         public Blog FindByTitle(string title)
         {
             var filter = Builders<Blog>.Filter.Eq(doc => doc.Title, title);
@@ -130,4 +130,53 @@ namespace Hania.NetCore.Mongo.Sample
     } 
 {
 ```
+Important: This library automatically identifies all Custom Repository and adds them in Net Core IOC as a service, and there is no need to define Repository anywhere. You can also easily use injection in Repositories
+``` csharp
+using Hania.NetCore.Mongo.Sample.Documents;
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
+namespace Hania.NetCore.Mongo.Sample.Controllers
+{
+    [Route("")]
+    [ApiController]
+    public class HomeController : ControllerBase
+    {
+        private readonly IBlogRespository _blogRepository;
+
+        public HomeController(IBlogRespository blogRepository)
+        {
+            _blogRepository = blogRepository;
+            _blogRepository.InsertOne(new Blog());
+        }
+
+
+        [HttpGet]
+        public   IEnumerable<Blog> GetBlogs()
+        {
+            return _blogRepository.FilterBy(x => true);
+        }
+    }
+}
+```
+
+### Crud Controller
+You Can Create Easily Crud Controlelr For each Document
+
+``` csharp
+using Hania.NetCore.Mongo.Abstracts;
+using Hania.NetCore.Mongo.Sample.Documents;
+using Microsoft.AspNetCore.Mvc;
+
+namespace Hania.NetCore.Mongo.Sample.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class BlogController : MongoCrudController<Blog>
+    {
+        public BlogController(IMongoRepository<Blog> repository) : base(repository)
+        {
+        }
+    }
+}
+```
