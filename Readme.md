@@ -31,6 +31,7 @@ PM> Install-Package Hania.NetCore.Mongo
         "Host": "mongodb://test:test2020@mongo_test:27017",
         "Database": "TestDb"
     },
+}
 ```
 
 
