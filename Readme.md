@@ -11,6 +11,15 @@
 
 Mongo Helper Library, which simply supports Repository Pattern in .Net Core 3.1 or above
 
+
+This library is based on Mongo.Driver and is an upgrade of this library.
+
+Features:
+- Automatically configure the database just using the mongo section in appsettings.json
+- Configure the collection using the Collection attribute on document classes
+- Automatic injection of Repositories (identify repositories from assembly and add to Net Core IOC)
+- MongoCrudController <Document> dedicated controller to build a controller for crud operations on documents
+
 ### Where can I get it?
 
 First, [install NuGet](http://docs.nuget.org/docs/start-here/installing-nuget). Then, install [Hania.NetCore.Mongo](https://www.nuget.org/packages/Hania.NetCore.Mongo/) from the package manager console:
