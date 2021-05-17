@@ -2,7 +2,7 @@
 # Hania.NetCore.Mongo
 
 [![Build status](https://ci.appveyor.com/api/projects/status/q261l3sbokafmx1o/branch/master?svg=true)](https://www.nuget.org/packages/Hania.NetCore.Mongo/)
-[![NuGet](http://img.shields.io/nuget/v/HHania.NetCore.Mongo.svg)](https://www.nuget.org/packages/Hania.NetCore.Mongo/)
+[![NuGet](http://img.shields.io/nuget/v/Hania.NetCore.Mongo.svg)](https://www.nuget.org/packages/Hania.NetCore.Mongo/)
 [![Author](https://img.shields.io/badge/Author-Akbar%20Ahmadi%20Saray-brightgreen.svg)](https://www.nuget.org/packages/Hania.NetCore.Mongo/)
 [![Linkdin](https://img.shields.io/badge/Linkdin-Akbar%20Ahmadi%20Saray-orange.svg)](https://www.linkedin.com/in/akbar-ahmadi-saray-5a5b9016b/)
 
