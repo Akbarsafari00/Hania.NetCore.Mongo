@@ -1,0 +1,25 @@
+version: '3.7'
+
+services:
+  hania.netcore.mongo.sample:
+    image: ${DOCKER_REGISTRY-}hanianetcoremongosample
+    build:
+      context: .
+      dockerfile: Hania.NetCore.Mongo.Sample/Dockerfile
+    networks:
+           - tstnetwork
+
+  mongo_test:
+        image: mongo
+        container_name: mongo_test
+        environment:
+            - MONGO_INITDB_ROOT_USERNAME=test
+            - MONGO_INITDB_ROOT_PASSWORD=test2020
+        networks:
+            - tstnetwork
+
+volumes:
+    mongo_test_data:
+
+networks:
+  tstnetwork:

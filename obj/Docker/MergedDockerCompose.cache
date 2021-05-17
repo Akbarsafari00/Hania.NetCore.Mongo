@@ -1,0 +1,30 @@
+networks:
+  tstnetwork: {}
+services:
+  hania.netcore.mongo.sample:
+    build:
+      context: C:\Users\akbar\source\repos\Hania.NetCore.Mongo.Sample
+      dockerfile: Hania.NetCore.Mongo.Sample/Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Docker
+      ASPNETCORE_URLS: http://+:80
+    image: hanianetcoremongosample
+    networks:
+      tstnetwork: {}
+    ports:
+    - published: 5001
+      target: 80
+    volumes:
+    - C:\Users\akbar\AppData\Roaming\ASP.NET\Https:/root/.aspnet/https:ro
+    - C:\Users\akbar\AppData\Roaming\Microsoft\UserSecrets:/root/.microsoft/usersecrets:ro
+  mongo_test:
+    container_name: mongo_test
+    environment:
+      MONGO_INITDB_ROOT_PASSWORD: test2020
+      MONGO_INITDB_ROOT_USERNAME: test
+    image: mongo
+    networks:
+      tstnetwork: {}
+version: '3.7'
+volumes:
+  mongo_test_data: {}
