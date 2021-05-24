@@ -36,10 +36,12 @@ PM> Install-Package Hania.NetCore.Mongo
 
 ```json
 {
-    "mongo": {
-        "Host": "mongodb://test:test2020@mongo_test:27017",
-        "Database": "TestDb"
-    },
+    "hania": {
+        "mongo": {
+            "Host": "mongodb://test:test2020@mongo_test:27017",
+            "Database": "TestDb"
+        }
+    }
 }
 ```
 
@@ -74,7 +76,7 @@ And you should User `Collection` Attribute For Collection Configuration
 
 ```csharp
 [Collection(collectionName:"Blog")]
-public class Blog : Document
+public class Blog : Document<Guid>
 {
     public string Title { get; set; }
     public string Content { get; set; }
@@ -98,9 +100,9 @@ namespace Hania.NetCore.Mongo.Sample.Controllers
     [ApiController]
     public class HomeController : ControllerBase
     {
-        private readonly IMongoRepository<Blog> _blogRepository;
+        private readonly IMongoRepository<Blog,Guid> _blogRepository;
 
-        public HomeController(IMongoRepository<Blog> blogRepository)
+        public HomeController(IMongoRepository<Blog,Guid> blogRepository)
         {
             _blogRepository = blogRepository;
             _blogRepository.InsertOne(new Blog());
@@ -122,11 +124,11 @@ You Can Create your custom repository and use it .
 ``` csharp
 namespace Hania.NetCore.Mongo.Sample
 {
-    public interface IBlogRespository:IMongoRepository<Blog>
+    public interface IBlogRespository:IMongoRepository<Blog,Guid>
     {
     }
     
-    public class BlogRespository : MongoRepository<Blog>, IBlogRespository
+    public class BlogRespository : MongoRepository<Blog,Guid>, IBlogRespository
     {
         public BlogRespository(IMongoDbSettings settings) : base(settings)
         {
@@ -182,9 +184,9 @@ namespace Hania.NetCore.Mongo.Sample.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BlogController : MongoCrudController<Blog>
+    public class BlogController : MongoCrudController<Blog,Guid>
     {
-        public BlogController(IMongoRepository<Blog> repository) : base(repository)
+        public BlogController(IMongoRepository<Blog,Guid> repository) : base(repository)
         {
         }
     }
